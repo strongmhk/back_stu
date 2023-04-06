@@ -1,0 +1,9 @@
+*.settings
+*.classpath
+*.class
+*.project
+*.iml
+*.xml
+*.json
+js/express/node_modules
+js/express/views
