@@ -18,14 +18,55 @@ class StandardOutput {
 
 }
 
+class Car{
+    public void run(){
+        System.out.println("전륜구동으로 달린다.");
+    }
+
+    @Override
+    public String toString() {
+        return "자동차!!";
+    }
+}
+class Bus extends Car{
+    public void run(){
+        System.out.println("전륜구동으로 달린다.");
+    }
+    public void 안내방송(){
+        System.out.println("안내방송하다.");
+    }
+}
+
+class SuperCar extends Car{
+    public void run() {
+        System.out.println("사륜구동으로 달린다.");
+    }
+}
+
 
 public class _2OverLoading{
     public static void main(String[] args){
-        StandardOutput output = new StandardOutput();
+        /*StandardOutput output = new StandardOutput();
         output.println(100);
         output.println("hello");
         output.println(10.5);
-        output.println(false);
+        output.println(false);*/
+
+        Bus b1 = new Bus();
+        b1.run();
+//        b1.안내방송();
+        Car c1 = new Bus(); // 버스는 자동차다.
+        c1.run(); // 그(c1)자동차는 달린다.
+        // 메소드가 오버라이딩되면 무조건 오버라이딩 된(자식의) 메소드가 실행된다.
+//        c1.안내방송();
+        Bus b2 = (Bus)c1;
+        b2.안내방송();
+
+        Car c2 = new SuperCar();
+        c2.run();
 
     }
 }
+
+
+// 오버라이딩
