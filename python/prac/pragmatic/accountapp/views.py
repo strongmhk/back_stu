@@ -21,7 +21,7 @@ def hello_world(request):
         return HttpResponseRedirect(reverse('accountapp:hello_world'))
     else:
         hello_world_list = HelloWorld.objects.all()
-        return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
+        return render(request, 'accountapp/hello_world.html' , context={'hello_world_list': hello_world_list})
 
 
 
