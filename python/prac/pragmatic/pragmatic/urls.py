@@ -22,7 +22,8 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include('accountapp.urls')), # http 요청을 accountapp.urls 로 분기해라
-    path("profiles/", include('profileapp.urls')) # http 요청을 profileapp.urls 로 분기해라
+    path("profiles/", include('profileapp.urls')), # http 요청을 profileapp.urls 로 분기해라
+    path("articles/", include('articleapp.urls')), # http 요청을 profileapp.urls 로 분기해라
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
