@@ -83,4 +83,7 @@ venv/
 db.sqlite3
 
 __pycache__/
+/db_backup.sqlite3
+
+media/
 
