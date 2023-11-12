@@ -19,7 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from articleapp.views import ArticleListView
+
 urlpatterns = [
+    path('', ArticleListView.as_view(), name='home'),
+
     path("admin/", admin.site.urls),
     path("accounts/", include('accountapp.urls')), # http 요청을 accountapp.urls 로 분기해라
     path("profiles/", include('profileapp.urls')),
