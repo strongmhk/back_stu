@@ -59,6 +59,8 @@ public class ItemController {
         return "item-view";
     }
 
+    // 이미지를 웹브라우저에 보여주는 메서드(이미지 다운로드하는 메서드가 아님!)
+    // 바이너리 데이터를 웹브라우저에 전송함
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
@@ -67,6 +69,7 @@ public class ItemController {
     }
 
 
+    //  첨부파일 다운로드 메서드
     @GetMapping("/attach/{itemId}") // item에 접근할 수 있는 사용자만 다운로드 받을 수 있도록함
     public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) throws MalformedURLException {
         Item item = itemRepository.findById(itemId);
@@ -78,7 +81,8 @@ public class ItemController {
         log.info("uploadFileName={}", uploadFileName);
 
         String encodedUploadFileName = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8); // 한글 깨지지않게 인코딩해주기
-        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\""; // 웹브라우저가 다운로드해야되는 파일임을 인식하게함
+        // 클릭하면 해당 파일을 열음. 클릭하면 다운로드 되도록, 웹브라우저가 다운로드해야되는 파일임을 인식하게함
+        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
