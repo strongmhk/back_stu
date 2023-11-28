@@ -1,20 +1,33 @@
 package hello.jdbc.repository;
 
 import hello.jdbc.domain.Member;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 class MemberRepositoryV0Test {
 
     MemberRepositoryV0 repository = new MemberRepositoryV0();
     @Test
     void crud() throws SQLException {
-        Member member = new Member("memberV1", 10000);
+        // save
+        Member member = new Member("memberV4", 10000);
         repository.save(member);
+
+        // findById
+        Member findMember = repository.findById(member.getMemberId());
+        log.info("findMember={}", findMember);
+        log.info("member == findMember {}", member == findMember); // member와 findMember는 다른 인스턴스이므로 참조값은 다름
+        log.info("member equals findMember {}", member.equals(findMember)); // equals 메서드는 참조값이 아닌
+        assertThat(findMember).isEqualTo(member);
     }
+
 
 
 
