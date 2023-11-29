@@ -49,15 +49,6 @@ public class ConnectionTest {
     private void useDataSource(DataSource dataSource) throws SQLException {
         Connection con1 = dataSource.getConnection(); // Pool에 커넥션이 없으면 기다린다.
         Connection con2 = dataSource.getConnection();
-        Connection con3 = dataSource.getConnection();
-        Connection con4 = dataSource.getConnection();
-        Connection con5 = dataSource.getConnection();
-        Connection con6 = dataSource.getConnection();
-        Connection con7 = dataSource.getConnection();
-        Connection con8 = dataSource.getConnection();
-        Connection con9 = dataSource.getConnection();
-        Connection con10 = dataSource.getConnection();
-        Connection con11 = dataSource.getConnection();
 
         log.info("connection={}, class={}", con1, con1.getClass());
         log.info("connection={}, class={}", con2, con2.getClass());
