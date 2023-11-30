@@ -1,8 +1,8 @@
-package hello.jdbc.repository;
+package hello.jdbc.service;
 
-import hello.jdbc.connection.ConnectionConst;
 import hello.jdbc.domain.Member;
-import org.assertj.core.api.Assertions;
+import hello.jdbc.repository.MemberRepositoryV1;
+import hello.jdbc.service.MemberServiceV1;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +13,6 @@ import java.sql.SQLException;
 
 import static hello.jdbc.connection.ConnectionConst.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
