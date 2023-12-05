@@ -1,6 +1,5 @@
 package hello.jdbc.exception.translator;
 
-import hello.jdbc.connection.ConnectionConst;
 import hello.jdbc.domain.Member;
 import hello.jdbc.ex.MyDbException;
 import hello.jdbc.ex.MyDuplicateKeyException;
