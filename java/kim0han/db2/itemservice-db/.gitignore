@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### Query dsl Q File ###
+src/main/generated/

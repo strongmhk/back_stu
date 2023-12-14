@@ -20,4 +20,9 @@ public interface SpringDataJpaItemRepository extends JpaRepository<Item, Long> {
     List<Item> findItems(@Param("itemName") String itemName, @Param("price") Integer price);
 
 
+
+
+
+
+
 }
