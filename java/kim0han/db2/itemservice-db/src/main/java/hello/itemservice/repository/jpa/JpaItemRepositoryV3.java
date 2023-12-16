@@ -80,7 +80,7 @@ public class JpaItemRepositoryV3 implements ItemRepository {
         String itemName = cond.getItemName();
         Integer maxPrice = cond.getMaxPrice();
 
-        
+
         return query
                 .select(item)
                 .from(item)
