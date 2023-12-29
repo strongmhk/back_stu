@@ -16,13 +16,6 @@ public class JpaMain {
 
         try {
 
-            //준영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
-
-            em.detach(member);
-
-            System.out.println("=============");
 
             tx.commit();
         } catch (Exception e) {
