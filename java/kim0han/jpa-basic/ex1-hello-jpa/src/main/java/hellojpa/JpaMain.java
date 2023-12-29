@@ -39,6 +39,7 @@ public class JpaMain {
 
             //DB SEQ = 1  | 1
             //DB SEQ = 51 | 2
+            //DB SEQ = 51 | 3
 
 
             tx.commit();
