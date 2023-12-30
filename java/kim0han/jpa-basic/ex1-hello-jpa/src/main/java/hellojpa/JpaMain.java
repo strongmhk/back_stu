@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -16,30 +17,28 @@ public class JpaMain {
 
         try {
 
-            Member member1 = new Member();
-            member1.setUsername("A");
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team); // 1차 캐시에 저장
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            Member member = new Member();
+            member.setUsername("member1");
+            em.persist(member); // 1차 캐시에 저장
 
-            Member member3 = new Member();
-            member3.setUsername("C");
+            team.addMember(member);
 
-            System.out.println("============");
 
-            em.persist(member1); // 1,51
-            em.persist(member2); // MEM -> DB 호출X
-            em.persist(member3); // MEM -> DB 호출X
 
-            System.out.println("member1.id = " + member1.getId());
-            System.out.println("member2.id = " + member2.getId());
-            System.out.println("member3.id = " + member3.getId());
 
-            System.out.println("============");
+//            em.flush();
+//            em.clear();
 
-            //DB SEQ = 1  | 1
-            //DB SEQ = 51 | 2
-            //DB SEQ = 51 | 3
+            Team findTeam = em.find(Team.class, team.getId()); // 메모리에 있는 1차 캐시에서 가져옴
+            List<Member> members = findTeam.getMembers();
+
+            System.out.println("=================");
+            System.out.println("findTeam = " + findTeam);
+            System.out.println("=================");
 
 
             tx.commit();
