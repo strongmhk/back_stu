@@ -14,9 +14,8 @@ public class Member {
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
-
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
     private Team team;
 
     public Member() {
@@ -38,26 +37,18 @@ public class Member {
         this.username = username;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
+//    public void setTeam(Team team) {
+//        this.team = team;
+//    }
+//
+//    public Team getTeam() {
+//        return team;
+//
+//    }
+//
+//    public void changeTeam(Team team) {
+//        this.team = team;
+//        team.getMembers().add(this);
+//    }
 
-    public Team getTeam() {
-        return team;
-
-    }
-
-    public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
-    }
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", team=" + team +
-                '}';
-    }
 }

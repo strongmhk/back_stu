@@ -17,29 +17,16 @@ public class JpaMain {
 
         try {
 
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team); // 1차 캐시에 저장
-
             Member member = new Member();
             member.setUsername("member1");
-            em.persist(member); // 1차 캐시에 저장
 
-            team.addMember(member);
+            em.persist(member);
 
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member);
 
-
-
-//            em.flush();
-//            em.clear();
-
-            Team findTeam = em.find(Team.class, team.getId()); // 메모리에 있는 1차 캐시에서 가져옴
-            List<Member> members = findTeam.getMembers();
-
-            System.out.println("=================");
-            System.out.println("findTeam = " + findTeam);
-            System.out.println("=================");
-
+            em.persist(team);
 
             tx.commit();
         } catch (Exception e) {
