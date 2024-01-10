@@ -15,7 +15,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    
+
     @Transactional
     //회원 가입
     public Long join(Member member) {
