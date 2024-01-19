@@ -28,6 +28,7 @@ class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
     @Autowired TeamRepository teamRepository;
+    @Autowired MemberQueryRepository memberQueryRepository;
     @PersistenceContext EntityManager em;
 
     @Test
@@ -321,6 +322,39 @@ class MemberRepositoryTest {
 
         //when
         List<Member> result = memberRepository.findLockByUsername("member1");
+
+    }
+
+    @Test
+    void callCustom() throws Exception {
+        //given
+        List<Member> result = memberRepository.findMemberCustom();
+
+        //when
+
+        //then
+    }
+
+    @Test
+    void JpaEventBaseEntity() throws Exception {
+        //given
+        Member member = new Member("member1");
+        memberRepository.save(member); //@PrePersist
+
+        Thread.sleep(100);
+        member.setUsername("member2");
+
+        em.flush(); //@PreUpdate
+        em.clear();
+
+        //when
+        Member findMember = memberRepository.findById(member.getId()).get();
+
+        //then
+        System.out.println("findMember.createDate = " + findMember.getCreatedDate());
+        System.out.println("findMember.lastModifiedDate = " + findMember.getLastModifiedDate());
+        System.out.println("findMember.createBy = " + findMember.getCreatedBy());
+        System.out.println("findMember.lastModifiedBy = " + findMember.getLastModifiedBy());
 
     }
 }
