@@ -3,6 +3,8 @@ package com.example.security2.controller;
 import com.example.security2.domain.User;
 import com.example.security2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,6 +62,20 @@ public class IndexController {
         user.setPassword(encPwd);
         userRepository.save(user); // 회원가입 잘되지만, 비밀번호가 암호화되지 않고 그대로 저장돼 시큐리티로 로그인이 불가능
         return "redirect:/loginForm";
+    }
+
+    @GetMapping("/info")
+    @ResponseBody
+    @Secured("ROLE_ADMIN")
+    public String info() {
+        return "개인정보";
+    }
+
+    @GetMapping("/data")
+    @ResponseBody
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public String data() {
+        return "데이터";
     }
 
 
