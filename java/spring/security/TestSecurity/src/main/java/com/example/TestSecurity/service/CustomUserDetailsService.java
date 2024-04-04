@@ -23,7 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (userData != null) {
             return new CustomUserDetails(userData); // DB에서 가져온 user의 정보를 UserDetails를 구현한 클래스에 저장
         }
-
         return null;
     }
 }
