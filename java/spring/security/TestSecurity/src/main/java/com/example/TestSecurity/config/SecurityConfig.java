@@ -2,6 +2,8 @@ package com.example.TestSecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,19 +27,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/login", "join", "joinProc").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
-                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers( "/login", "join", "joinProc").permitAll()
+                        .requestMatchers("/").hasAnyRole("A") // 권한 낮은쪽부터 설정
+                        .requestMatchers("/manager").hasAnyRole("B")
+                        .requestMatchers("/admin").hasAnyRole("C")
                         .anyRequest().authenticated()
                 );
 
-//        http.
-//                formLogin((auth) -> auth.loginPage("/login")
-//                        .loginProcessingUrl("/loginProc")
-//                        .permitAll()
-//                );
-        http
-                .httpBasic(Customizer.withDefaults());
+        http.
+                formLogin((auth) -> auth.loginPage("/login")
+                        .loginProcessingUrl("/loginProc")
+                        .permitAll()
+                );
+//        http
+//                .httpBasic(Customizer.withDefaults());
 
         http
                 .csrf((auth) -> auth.disable());
@@ -57,20 +60,27 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-
         UserDetails user1 = User.builder()
                 .username("user1")
                 .password(bCryptPasswordEncoder().encode("1234"))
-                .roles("ADMIN")
+                .roles("C")
                 .build();
 
         UserDetails user2 = User.builder()
                 .username("user2")
                 .password(bCryptPasswordEncoder().encode("1234"))
-                .roles("USER")
+                .roles("A")
                 .build();
 
         return new InMemoryUserDetailsManager(user1, user2);
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+        hierarchy.setHierarchy("ROLE_C > ROLE_B\n" +
+                "ROLE_B > ROLE_A");
+        return hierarchy;
     }
 
 
