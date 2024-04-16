@@ -40,11 +40,9 @@ public class CafeKiosk {
     }
 
     public int calculateTotalPrice() {
-        int totalPrice = 0;
-        for (Beverage beverage : beverages) {
-            totalPrice += beverage.getPrice();
-        }
-        return totalPrice;
+        return beverages.stream()
+                .mapToInt(Beverage::getPrice)
+                .sum();
     }
 
     public Order createOrder() {
@@ -57,6 +55,7 @@ public class CafeKiosk {
         return new Order(currentDateTime, beverages);
     }
 
+    // 테스트하기 위해 통제가 어려운 변수를 외부로 분리
     public Order createOrder(LocalDateTime currentDateTime) {
         LocalTime currentTime = currentDateTime.toLocalTime();
         if (currentTime.isBefore(SHOP_OPEN_TIME) || currentTime.isAfter(SHOP_CLOSE_TIME)) {
