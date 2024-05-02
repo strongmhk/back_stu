@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sample.cafekiosk.spring.domain.BaseEntity;
 
+/**
+ * Class that manages product inventory
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -29,6 +32,12 @@ public class Stock extends BaseEntity {
         this.quantity = quantity;
     }
 
+    /**
+     * Create new inventory by receiving product number and quantity.
+     * @param productNumber number of product
+     * @param quantity amount of product
+     * @return Create a new Stock entity
+     */
     public static Stock create(String productNumber, int quantity) {
         return Stock.builder()
                 .productNumber(productNumber)

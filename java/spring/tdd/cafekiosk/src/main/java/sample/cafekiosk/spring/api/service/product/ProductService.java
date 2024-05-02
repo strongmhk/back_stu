@@ -10,12 +10,19 @@ import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Object that processes business logic regarding products
+ */
 @RequiredArgsConstructor
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
 
+    /**
+     * Method to search for products on sale
+     * @return List of viewed products
+     */
     public List<ProductResponse> getSellingProducts() {
         List<Product> products = productRepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
 
