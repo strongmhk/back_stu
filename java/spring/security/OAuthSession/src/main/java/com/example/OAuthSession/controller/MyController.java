@@ -10,7 +10,6 @@ public class MyController {
 
     @GetMapping("/my")
     public String myPage() {
-
         return "my";
     }
 }
