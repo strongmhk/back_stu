@@ -14,5 +14,4 @@ public class CustomClientRegistrationRepo {
     public ClientRegistrationRepository getClientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(socialClientRegistration.naverClientRegistration(), socialClientRegistration.googleClientRegistration());
     }
-
 }
