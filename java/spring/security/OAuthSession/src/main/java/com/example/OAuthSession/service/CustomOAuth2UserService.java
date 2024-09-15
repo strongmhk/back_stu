@@ -4,7 +4,7 @@ import com.example.OAuthSession.dto.CustomOAuth2User;
 import com.example.OAuthSession.dto.GoogleResponse;
 import com.example.OAuthSession.dto.NaverResponse;
 import com.example.OAuthSession.dto.OAuth2Response;
-import com.example.OAuthSession.entity.UserEntity;
+import com.example.OAuthSession.entity.User;
 import com.example.OAuthSession.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         String username = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
-        UserEntity existUser = userRepository.findByUsername(username);
+        User existUser = userRepository.findByUsername(username);
 
         // 신규 회원의 경우 새로운 role 지정이 필요하기 때문에 초기값이 null이면 안됨
         String role = "ROLE_USER";
@@ -47,14 +47,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // 새로운 회원인 경우
         if (existUser == null) {
             // 새로운 회원 정보 DB에 저장
-            UserEntity newUser = UserEntity.builder()
+            User newUser = User.builder()
                     .username(username)
                     .email(oAuth2Response.getEmail())
                     .role(role)
                     .build();
 
             userRepository.save(newUser);
-        } else {
+        } else { // 이미 존재하는 회원인 경우
             existUser.updateUserInfo(username, oAuth2Response.getEmail());
             role = existUser.getRole();
 

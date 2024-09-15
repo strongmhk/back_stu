@@ -9,7 +9,7 @@ import lombok.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class UserEntity {
     private String role;
 
     @Builder
-    public UserEntity(String username, String email, String role) {
+    public User(String username, String email, String role) {
         this.username = username;
         this.email = email;
         this.role = role;
@@ -32,5 +32,4 @@ public class UserEntity {
         this.username = username;
         this.email = email;
     }
-
 }
